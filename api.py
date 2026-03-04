@@ -9,7 +9,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-# API_KEY = "test"
+
 
 #load model
 model = joblib.load('linear_model.joblib')
@@ -19,7 +19,6 @@ def greeting():
   return "Linear Regression API"
 
 @app.route('/predict/<int:x>',methods=['GET'])
-# @check_api_key
 def predict(x):
     try:
         x_value = np.array([[int(x)]])
@@ -40,6 +39,9 @@ def handle_not_found(e):
     
 
 if __name__ == '__main__':
-    # app.run(debug=True, use_reloader=False)
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    #run locally
+    app.run(debug=True, use_reloader=False)
+
+    #run on render
+    # port = int(os.environ.get("PORT", 5000))
+    # app.run(host='0.0.0.0', port=port)
